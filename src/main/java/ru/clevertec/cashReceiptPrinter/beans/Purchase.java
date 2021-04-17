@@ -40,6 +40,6 @@ public class Purchase implements Comparable<Purchase> {
     @Override
     public String toString() {
         return number + Constants.CSV_DELIMITER + product
-                + Constants.CSV_DELIMITER;
+                + Constants.CSV_DELIMITER + Utility.priceToString(getCost());
     }
 }
