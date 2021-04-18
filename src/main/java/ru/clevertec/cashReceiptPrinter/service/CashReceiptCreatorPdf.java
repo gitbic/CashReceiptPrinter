@@ -36,6 +36,7 @@ public class CashReceiptCreatorPdf implements CashReceiptCreator {
             useTemplate(writer, Constants.PDF_TEMPLATE_FILE_PATH);
 
             document.add(getCheckHead());
+            document.add(pdfTableSeparator());
             document.add(getCheckBody(purchases));
             document.add(pdfTableSeparator());
             document.add(getCheckTail(tailArgs));
@@ -50,7 +51,7 @@ public class CashReceiptCreatorPdf implements CashReceiptCreator {
     }
 
     private PdfPTable getCheckHead() {
-        PdfPTable table = getPdfTable(TableMenu.getCellWidth());
+        PdfPTable table = getPdfTable(TableMenu.getMenuCellsWidth());
 
         for (TableMenu value : TableMenu.values()) {
             table.addCell(value.toString());
@@ -59,7 +60,7 @@ public class CashReceiptCreatorPdf implements CashReceiptCreator {
     }
 
     private PdfPTable getCheckBody(List<Purchase> purchases) {
-        PdfPTable table = getPdfTable(TableMenu.getCellWidth());
+        PdfPTable table = getPdfTable(TableMenu.getMenuCellsWidth());
 
         for (Purchase purchase : purchases) {
             String[] csvStrings = purchase.toString().split(Constants.CSV_DELIMITER);
@@ -67,16 +68,16 @@ public class CashReceiptCreatorPdf implements CashReceiptCreator {
                 table.addCell(csvString);
             }
 
-            if (csvStrings.length == Constants.PDF_NUMBER_OF_COLUMN_PURCHASE_WITHOUT_DISCOUNT) {
-                table.addCell(Constants.STRING_ONE_SPACE);
-            }
+//            if (csvStrings.length == Constants.PDF_NUMBER_OF_COLUMN_PURCHASE_WITHOUT_DISCOUNT) {
+//                table.addCell(Constants.STRING_ONE_SPACE);
+//            }
         }
         return table;
     }
 
 
     private PdfPTable getCheckTail(String[] tailArgs) {
-        PdfPTable table = getPdfTable(TableTail.getCellWidth());
+        PdfPTable table = getPdfTable(TableTail.getTailCellsWidth());
 
         table.addCell(TableTail.TOTAL.toString());
         table.addCell(tailArgs[TableTail.TOTAL.ordinal()]);

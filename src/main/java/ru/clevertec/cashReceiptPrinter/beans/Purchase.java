@@ -3,6 +3,7 @@ package ru.clevertec.cashReceiptPrinter.beans;
 
 
 import ru.clevertec.cashReceiptPrinter.constants.Constants;
+import ru.clevertec.cashReceiptPrinter.util.FormatUtility;
 
 import java.math.BigDecimal;
 
@@ -40,6 +41,6 @@ public class Purchase implements Comparable<Purchase> {
     @Override
     public String toString() {
         return number + Constants.CSV_DELIMITER + product
-                + Constants.CSV_DELIMITER + Utility.priceToString(getCost());
+                + Constants.CSV_DELIMITER + FormatUtility.priceToString(getCost());
     }
 }

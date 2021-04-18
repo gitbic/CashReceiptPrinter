@@ -4,7 +4,7 @@ public class Constants {
     public static final String MAIL_PROPERTIES = "properties/send_mail";
     public static final String POSTGRESQL_CONNECTION_PROPERTIES = "properties/postgresql";
 
-    public static final String RESOURCES_PATH = "resources/";
+    public static final String RESOURCES_PATH = "src/main/resources/";
     public static final String DEFAULT_PRODUCT_INPUT_FILE_PATH = RESOURCES_PATH + "prod.csv";
     public static final String DEFAULT_CHECK_TXT_OUTPUT_FILE_PATH = RESOURCES_PATH + "check.txt";
     public static final String DEFAULT_CHECK_PDF_OUTPUT_FILE_PATH = RESOURCES_PATH + "check.pdf";
@@ -45,4 +45,10 @@ public class Constants {
     public static final String CHECK_WAS_PRINTED_IN_PDF_FILE = "Check was printed in pdf file";
     public static final String CHECK_WAS_PRINTED_IN_TXT_FILE = "Check was printed in txt file";
     public static final String CHECK_WAS_PRINTED_IN_CONSOLE = "Check was printed in pdf console";
+
+    public static final int QUANTITY_CELL_WIDTH = 5;
+    public static final int DESCRIPTION_CELL_WIDTH = 15;
+    public static final int PRICE_CELL_WIDTH = 10;
+    public static final int TOTAL_COST_CELL_WIDTH = 10;
+    public static final int DISCOUNT_PERCENT_COST_CELL_WIDTH = 10;
 }

@@ -3,14 +3,15 @@ package ru.clevertec.cashReceiptPrinter.enums;
 
 import ru.clevertec.cashReceiptPrinter.constants.Constants;
 
+import java.util.Arrays;
+
 public enum TableMenu {
 
-
-    QTY(5),
-    DESCRIPTION(15),
-    PRICE(10),
-    TOTAL(10),
-    DISCOUNT(10);
+    QTY(Constants.QUANTITY_CELL_WIDTH),
+    DESCRIPTION(Constants.DESCRIPTION_CELL_WIDTH),
+    PRICE(Constants.PRICE_CELL_WIDTH),
+    TOTAL(Constants.TOTAL_COST_CELL_WIDTH),
+    DISCOUNT(Constants.DISCOUNT_PERCENT_COST_CELL_WIDTH);
 
     private final int widthCell;
 
@@ -27,14 +28,10 @@ public enum TableMenu {
     }
 
     public static int getTotalWidth() {
-        int totalWidth = 0;
-        for (TableMenu value : values()) {
-            totalWidth += value.widthCell;
-        }
-        return totalWidth;
+        return Arrays.stream(values()).mapToInt(value -> value.widthCell).sum();
     }
 
-    public static float[] getCellWidth() {
+    public static float[] getMenuCellsWidth() {
 
         float[] cellsWidth = new float[values().length];
         for (int i = 0; i < cellsWidth.length; i++) {
