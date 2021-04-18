@@ -19,7 +19,6 @@ public class Constants {
     public static final String CSV_DELIMITER = ";";
 
     public static final String FORMAT_CELL = "%%-%ds";
-    public static final String FORMAT_NEW_LINE = "%n";
     public static final String STRING_ONE_SPACE = " ";
     public static final String EMPTY_STRING = " ";
     public static final String FSTRING_NUMBER_DECIMAL = "%.2f%%";

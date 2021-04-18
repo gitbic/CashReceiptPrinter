@@ -46,7 +46,7 @@ public class CashReceiptCreatorTxt implements CashReceiptCreator {
                 f.format(TableMenu.values()[i].getFormatForCell(), elements[i]);
             }
 
-            f.format(Constants.FORMAT_NEW_LINE);
+            f.format(System.lineSeparator());
         }
         return f.toString();
     }

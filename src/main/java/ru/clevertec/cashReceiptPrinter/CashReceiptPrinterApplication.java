@@ -83,11 +83,12 @@ public class CashReceiptPrinterApplication {
         orderCostDto.setTotalCost(new BigDecimal("20.46"));
         orderCostDto.setDiscountCost(new BigDecimal("2.05"));
         orderCostDto.setFinalCost(new BigDecimal("18.41"));
-        orderCostDto.setDiscountPercentByCard(10);
 
         OrderDto orderDto = new OrderDto();
         orderDto.setPurchaseFullResponseDtoList(purchaseFullResponseDtoList);
         orderDto.setOrderCostDto(orderCostDto);
+        orderDto.setUsername("user1");
+        orderDto.setDiscountPercentByCard(10);
 
         CashReceiptService cashReceiptService = new TxtCashReceiptService();
         ByteArrayOutputStream byteArrayOutputStream = cashReceiptService.createCashReceipt(orderDto);

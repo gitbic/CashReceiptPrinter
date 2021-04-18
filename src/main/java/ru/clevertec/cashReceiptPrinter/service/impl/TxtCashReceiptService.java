@@ -3,8 +3,7 @@ package ru.clevertec.cashReceiptPrinter.service.impl;
 import ru.clevertec.cashReceiptPrinter.Dto.OrderCostDto;
 import ru.clevertec.cashReceiptPrinter.Dto.OrderDto;
 import ru.clevertec.cashReceiptPrinter.Dto.PurchaseFullResponseDto;
-import ru.clevertec.cashReceiptPrinter.beans.Purchase;
-import ru.clevertec.cashReceiptPrinter.constants.Constants;
+import ru.clevertec.cashReceiptPrinter.enums.OrderDetail;
 import ru.clevertec.cashReceiptPrinter.enums.TableMenu;
 import ru.clevertec.cashReceiptPrinter.enums.TableTail;
 import ru.clevertec.cashReceiptPrinter.service.CashReceiptService;
@@ -24,7 +23,9 @@ public class TxtCashReceiptService implements CashReceiptService {
 
     @Override
     public ByteArrayOutputStream createCashReceipt(OrderDto orderDto) {
-        String str = getCheckHead()
+        String str = getOrderDetail(orderDto.getUsername(), orderDto.getDiscountPercentByCard())
+                + MENU_DELIMITER
+                + getCheckHead()
                 + MENU_DELIMITER
                 + getCheckBody(orderDto.getPurchaseFullResponseDtoList())
                 + MENU_DELIMITER
@@ -35,26 +36,38 @@ public class TxtCashReceiptService implements CashReceiptService {
         return byteArrayOutputStream;
     }
 
+    private String getOrderDetail(String username, String discountPercent) {
+        String tailString = TableTail.getTailFormatString();
+        Formatter formatter = new Formatter();
+        formatter.format(tailString, OrderDetail.DATA, new java.util.Date());
+        formatter.format(tailString, OrderDetail.USERNAME, username);
+        formatter.format(tailString, OrderDetail.DISCOUNT_BY_CARD, discountPercent);
+        return formatter.toString();
+    }
+
     private String getCheckHead() {
-        Formatter f = new Formatter();
+        Formatter formatter = new Formatter();
+
         for (TableMenu value : TableMenu.values()) {
-            f.format(value.getFormatForCell(), value);
+            formatter.format(value.getFormatForCell(), value);
         }
-        f.format(System.lineSeparator());
-        return f.toString();
+
+        formatter.format(System.lineSeparator());
+        return formatter.toString();
     }
 
     private String getCheckBody(List<PurchaseFullResponseDto> purchasesDto) {
         Formatter formatter = new Formatter();
 
         for (PurchaseFullResponseDto purchase : purchasesDto) {
-            String[] elements = purchase.toString().split(Constants.CSV_DELIMITER);
 
-            for (int i = 0; i < elements.length; i++) {
-                formatter.format(TableMenu.values()[i].getFormatForCell(), elements[i]);
-            }
+            formatter.format(TableMenu.QTY.getFormatForCell(), purchase.getProductNumber());
+            formatter.format(TableMenu.DESCRIPTION.getFormatForCell(), purchase.getProductName());
+            formatter.format(TableMenu.PRICE.getFormatForCell(), purchase.getProductPrice());
+            formatter.format(TableMenu.TOTAL.getFormatForCell(), purchase.getPurchaseCost());
+            formatter.format(TableMenu.DISCOUNT.getFormatForCell(), purchase.getDiscountPercent());
 
-            formatter.format(Constants.FORMAT_NEW_LINE);
+            formatter.format(System.lineSeparator());
         }
         return formatter.toString();
     }
@@ -63,7 +76,7 @@ public class TxtCashReceiptService implements CashReceiptService {
         String tailString = TableTail.getTailFormatString();
         Formatter formatter = new Formatter();
         formatter.format(tailString, TableTail.TOTAL, orderCostDto.getTotalCost());
-        formatter.format(tailString, TableTail.DISCOUNT, orderCostDto.getDiscountPercentByCard());
+        formatter.format(tailString, TableTail.DISCOUNT, orderCostDto.getDiscountCost());
         formatter.format(tailString, TableTail.PAYMENT, orderCostDto.getFinalCost());
         return formatter.toString();
     }

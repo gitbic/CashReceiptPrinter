@@ -16,12 +16,15 @@ public class PurchaseFullResponseDto {
     private double discountPercent;
     private BigDecimal purchaseCost;
 
-    @Override
-    public String toString() {
-        return productNumber + Constants.CSV_DELIMITER +
-                productName + Constants.CSV_DELIMITER +
-                FormatUtility.priceToString(productPrice) + Constants.CSV_DELIMITER +
-                FormatUtility.priceToString(purchaseCost) + Constants.CSV_DELIMITER +
-                FormatUtility.percentToString(discountPercent);
+    public String getProductPrice() {
+        return FormatUtility.priceToString(productPrice);
+    }
+
+    public String getDiscountPercent() {
+        return FormatUtility.percentToString(discountPercent);
+    }
+
+    public String getPurchaseCost() {
+        return FormatUtility.priceToString(purchaseCost);
     }
 }

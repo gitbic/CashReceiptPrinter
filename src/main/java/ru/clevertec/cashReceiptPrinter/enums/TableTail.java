@@ -10,20 +10,15 @@ public enum TableTail {
 
 
     public static String getTailFormatString() {
-        int secondCellWidth = TableMenu.DISCOUNT.getWidthCell() + TableMenu.TOTAL.getWidthCell();
-        int commonWidth = TableMenu.getTotalWidth() - secondCellWidth;
-
-        return String.format(Constants.FORMAT_CELL, commonWidth)
-                + String.format(Constants.FORMAT_CELL, secondCellWidth)
-                + Constants.FORMAT_NEW_LINE;
+        float[] cellsWidth = getTailCellsWidth();
+        return String.format(Constants.FORMAT_CELL, (int)cellsWidth[0])
+                + String.format(Constants.FORMAT_CELL, (int)cellsWidth[1])
+                + System.lineSeparator();
     }
 
     public static float[] getTailCellsWidth() {
-
         int secondCellWidth = TableMenu.DISCOUNT.getWidthCell() + TableMenu.TOTAL.getWidthCell();
-        return new float[]{
-                TableMenu.getTotalWidth() - secondCellWidth,
-                secondCellWidth
-        };
+        int firstCellWidth = TableMenu.getTotalWidth() - secondCellWidth;
+        return new float[]{firstCellWidth, secondCellWidth};
     }
 }
