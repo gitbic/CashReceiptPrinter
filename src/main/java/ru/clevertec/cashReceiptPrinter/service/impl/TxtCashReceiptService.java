@@ -3,32 +3,38 @@ package ru.clevertec.cashReceiptPrinter.service.impl;
 import ru.clevertec.cashReceiptPrinter.Dto.OrderCostDto;
 import ru.clevertec.cashReceiptPrinter.Dto.OrderDto;
 import ru.clevertec.cashReceiptPrinter.Dto.PurchaseFullResponseDto;
+import ru.clevertec.cashReceiptPrinter.constants.Constants;
+import ru.clevertec.cashReceiptPrinter.enums.CashReceiptType;
 import ru.clevertec.cashReceiptPrinter.enums.OrderDetail;
 import ru.clevertec.cashReceiptPrinter.enums.TableMenu;
 import ru.clevertec.cashReceiptPrinter.enums.TableTail;
 import ru.clevertec.cashReceiptPrinter.service.CashReceiptService;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Formatter;
 import java.util.List;
 
 public class TxtCashReceiptService implements CashReceiptService {
 
-    private final static String MENU_DELIMITER = "=".repeat(TableMenu.getTotalWidth()) + System.lineSeparator();
-
     @Override
-    public String printCashReceipt(ByteArrayOutputStream byteArrayOutputStream) {
-        return null;
+    public String getExtension() {
+        return CashReceiptType.TXT.getExtension();
     }
 
     @Override
     public ByteArrayOutputStream createCashReceipt(OrderDto orderDto) {
         String str = getOrderDetail(orderDto.getUsername(), orderDto.getDiscountPercentByCard())
-                + MENU_DELIMITER
+                + Constants.TXT_MENU_DELIMITER
                 + getCheckHead()
-                + MENU_DELIMITER
+                + Constants.TXT_MENU_DELIMITER
                 + getCheckBody(orderDto.getPurchaseFullResponseDtoList())
-                + MENU_DELIMITER
+                + Constants.TXT_MENU_DELIMITER
                 + getCheckTail(orderDto.getOrderCostDto());
 
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();

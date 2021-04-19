@@ -27,4 +27,8 @@ public class PurchaseFullResponseDto {
     public String getPurchaseCost() {
         return FormatUtility.priceToString(purchaseCost);
     }
+
+    public String getProductNumber() {
+        return String.valueOf(productNumber);
+    }
 }

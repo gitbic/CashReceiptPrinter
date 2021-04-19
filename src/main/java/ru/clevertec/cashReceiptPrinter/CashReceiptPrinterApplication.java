@@ -9,15 +9,10 @@ import ru.clevertec.cashReceiptPrinter.Dto.OrderDto;
 import ru.clevertec.cashReceiptPrinter.Dto.PurchaseFullResponseDto;
 import ru.clevertec.cashReceiptPrinter.beans.Product;
 import ru.clevertec.cashReceiptPrinter.beans.Purchase;
-import ru.clevertec.cashReceiptPrinter.constants.Constants;
-import ru.clevertec.cashReceiptPrinter.service.CashReceiptCreatorPdf;
-import ru.clevertec.cashReceiptPrinter.service.CashReceiptCreatorTxt;
-import ru.clevertec.cashReceiptPrinter.service.CashReceiptManager;
 import ru.clevertec.cashReceiptPrinter.service.CashReceiptService;
+import ru.clevertec.cashReceiptPrinter.service.impl.PdfCashReceiptService;
 import ru.clevertec.cashReceiptPrinter.service.impl.TxtCashReceiptService;
 
-import java.io.ByteArrayOutputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -33,33 +28,6 @@ public class CashReceiptPrinterApplication {
 
     @EventListener
     public void onStartListener(ApplicationReadyEvent event) throws IOException {
-
-        Product product1 = new Product(1, "milk", BigDecimal.valueOf(2.04), true);
-        Product product2 = new Product(2, "bread", BigDecimal.valueOf(1.17), false);
-
-        List<Purchase> purchases = new ArrayList<>();
-        purchases.add(new Purchase(product1, 2));
-        purchases.add(new Purchase(product2, 3));
-
-        String[] costBlock = {"totalCost", "discount", "finalCost"};
-
-//		CashReceiptManager console = CashReceiptManager.CONSOLE;
-//
-//		console.createCheck(purchases, costBlock);
-//		console.printCheck();
-
-//		CashReceiptCreatorPdf cashReceiptCreatorPdf = new CashReceiptCreatorPdf();
-//		ByteArrayOutputStream byteArrayOutputStream = cashReceiptCreatorPdf.createCheck(purchases, costBlock);
-//		FileOutputStream fileOutputStream = new FileOutputStream(Constants.DEFAULT_CHECK_PDF_OUTPUT_FILE_PATH);
-//		byteArrayOutputStream.writeTo(fileOutputStream);
-
-
-//        CashReceiptCreatorTxt cashReceiptCreatorTxt = new CashReceiptCreatorTxt();
-//        ByteArrayOutputStream byteArrayOutputStream = cashReceiptCreatorTxt.createCheck(purchases, costBlock);
-//        FileOutputStream fileOutputStream = new FileOutputStream(Constants.DEFAULT_CHECK_TXT_OUTPUT_FILE_PATH);
-//        byteArrayOutputStream.writeTo(fileOutputStream);
-//        byteArrayOutputStream.writeTo(System.out);
-
 
         PurchaseFullResponseDto purchaseDto1 = new PurchaseFullResponseDto();
         purchaseDto1.setProductName("banana");
@@ -90,11 +58,12 @@ public class CashReceiptPrinterApplication {
         orderDto.setUsername("user1");
         orderDto.setDiscountPercentByCard(10);
 
-        CashReceiptService cashReceiptService = new TxtCashReceiptService();
-        ByteArrayOutputStream byteArrayOutputStream = cashReceiptService.createCashReceipt(orderDto);
-        FileOutputStream fileOutputStream = new FileOutputStream(Constants.DEFAULT_CHECK_TXT_OUTPUT_FILE_PATH);
-        byteArrayOutputStream.writeTo(fileOutputStream);
-        byteArrayOutputStream.writeTo(System.out);
+        CashReceiptService txtCashReceiptService = new TxtCashReceiptService();
+        String txtCheckPath = txtCashReceiptService.printCashReceipt(txtCashReceiptService.createCashReceipt(orderDto));
+        System.out.println(txtCheckPath);
+
+        CashReceiptService pdfCashReceiptService = new PdfCashReceiptService();
+        String pdfCheckPath = pdfCashReceiptService.printCashReceipt(pdfCashReceiptService.createCashReceipt(orderDto));
     }
 
 }

@@ -1,10 +1,13 @@
 package ru.clevertec.cashReceiptPrinter.constants;
 
+import ru.clevertec.cashReceiptPrinter.enums.TableMenu;
+
 public class Constants {
     public static final String MAIL_PROPERTIES = "properties/send_mail";
     public static final String POSTGRESQL_CONNECTION_PROPERTIES = "properties/postgresql";
 
     public static final String RESOURCES_PATH = "src/main/resources/";
+    public static final String CASH_RECEIPT_FOLDER = RESOURCES_PATH + "cashReceipt/";
     public static final String DEFAULT_PRODUCT_INPUT_FILE_PATH = RESOURCES_PATH + "prod.csv";
     public static final String DEFAULT_CHECK_TXT_OUTPUT_FILE_PATH = RESOURCES_PATH + "check.txt";
     public static final String DEFAULT_CHECK_PDF_OUTPUT_FILE_PATH = RESOURCES_PATH + "check.pdf";
@@ -20,7 +23,7 @@ public class Constants {
 
     public static final String FORMAT_CELL = "%%-%ds";
     public static final String STRING_ONE_SPACE = " ";
-    public static final String EMPTY_STRING = " ";
+    public static final String EMPTY_STRING = "";
     public static final String FSTRING_NUMBER_DECIMAL = "%.2f%%";
     public static final int NUMBER_DECIMAL = 2;
     public static final String SIGN_DOLLAR = "$";
@@ -50,4 +53,8 @@ public class Constants {
     public static final int PRICE_CELL_WIDTH = 10;
     public static final int TOTAL_COST_CELL_WIDTH = 10;
     public static final int DISCOUNT_PERCENT_COST_CELL_WIDTH = 10;
+
+    public static final String TXT_MENU_DELIMITER = "=".repeat(TableMenu.getTotalWidth()) + System.lineSeparator();
+
+    public static final String PREFIX_FILE_DAY_TIME_FORMAT = "yyyy.MM.dd_HH.mm.ss_";
 }
