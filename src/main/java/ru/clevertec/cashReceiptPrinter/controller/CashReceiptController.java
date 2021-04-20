@@ -1,5 +1,6 @@
 package ru.clevertec.cashReceiptPrinter.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -12,9 +13,10 @@ import ru.clevertec.cashReceiptPrinter.service.CashReceiptService;
 @RequestMapping("/cashReceipt")
 public class CashReceiptController {
 
-    CashReceiptService cashReceiptService;
+    private final CashReceiptService cashReceiptService;
 
-    public CashReceiptController(@Qualifier("pdfCashReceiptService") CashReceiptService cashReceiptService) {
+    @Autowired
+    public CashReceiptController(CashReceiptService cashReceiptService) {
         this.cashReceiptService = cashReceiptService;
 
     }
