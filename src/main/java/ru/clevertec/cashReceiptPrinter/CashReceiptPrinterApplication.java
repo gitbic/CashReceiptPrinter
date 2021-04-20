@@ -8,6 +8,7 @@ import org.springframework.context.annotation.ComponentScan;
 public class CashReceiptPrinterApplication {
 
     public static void main(String[] args) {
+        System.out.println(1);
         SpringApplication.run(CashReceiptPrinterApplication.class, args);
     }
 }
