@@ -1,5 +1,6 @@
 package ru.clevertec.cashReceiptPrinter.service.impl;
 
+import org.springframework.stereotype.Service;
 import ru.clevertec.cashReceiptPrinter.Dto.OrderCostDto;
 import ru.clevertec.cashReceiptPrinter.Dto.OrderDto;
 import ru.clevertec.cashReceiptPrinter.Dto.PurchaseFullResponseDto;
@@ -9,22 +10,20 @@ import ru.clevertec.cashReceiptPrinter.enums.OrderDetail;
 import ru.clevertec.cashReceiptPrinter.enums.TableMenu;
 import ru.clevertec.cashReceiptPrinter.enums.TableTail;
 import ru.clevertec.cashReceiptPrinter.service.CashReceiptService;
+import ru.clevertec.cashReceiptPrinter.util.IOUtility;
 
 import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.Formatter;
 import java.util.List;
 
+@Service
 public class TxtCashReceiptService implements CashReceiptService {
 
     @Override
-    public String getExtension() {
-        return CashReceiptType.TXT.getExtension();
+    public String printCashReceipt(OrderDto orderDto) {
+        ByteArrayOutputStream byteArrayOutputStream = createCashReceipt(orderDto);
+        String fileExtension = CashReceiptType.TXT.getExtension();
+        return IOUtility.writeByteStreamToFile(byteArrayOutputStream, fileExtension);
     }
 
     @Override

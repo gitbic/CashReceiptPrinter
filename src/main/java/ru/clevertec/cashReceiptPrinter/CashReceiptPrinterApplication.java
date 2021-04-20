@@ -7,12 +7,11 @@ import org.springframework.context.event.EventListener;
 import ru.clevertec.cashReceiptPrinter.Dto.OrderCostDto;
 import ru.clevertec.cashReceiptPrinter.Dto.OrderDto;
 import ru.clevertec.cashReceiptPrinter.Dto.PurchaseFullResponseDto;
-import ru.clevertec.cashReceiptPrinter.beans.Product;
-import ru.clevertec.cashReceiptPrinter.beans.Purchase;
 import ru.clevertec.cashReceiptPrinter.service.CashReceiptService;
 import ru.clevertec.cashReceiptPrinter.service.impl.PdfCashReceiptService;
 import ru.clevertec.cashReceiptPrinter.service.impl.TxtCashReceiptService;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -59,11 +58,16 @@ public class CashReceiptPrinterApplication {
         orderDto.setDiscountPercentByCard(10);
 
         CashReceiptService txtCashReceiptService = new TxtCashReceiptService();
-        String txtCheckPath = txtCashReceiptService.printCashReceipt(txtCashReceiptService.createCashReceipt(orderDto));
+        String txtCheckPath = txtCashReceiptService.printCashReceipt(orderDto);
         System.out.println(txtCheckPath);
 
+        ByteArrayOutputStream cashReceipt = txtCashReceiptService.createCashReceipt(orderDto);
+        System.out.println(cashReceipt);
+
         CashReceiptService pdfCashReceiptService = new PdfCashReceiptService();
-        String pdfCheckPath = pdfCashReceiptService.printCashReceipt(pdfCashReceiptService.createCashReceipt(orderDto));
+        String pdfCheckPath = pdfCashReceiptService.printCashReceipt(orderDto);
+        System.out.println(pdfCheckPath);
+
     }
 
 }

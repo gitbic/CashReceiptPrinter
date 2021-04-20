@@ -1,4 +1,4 @@
-DATA                          Mon Apr 19 16:51:59 MSK 2021
+DATA                          Mon Apr 19 18:10:10 MSK 2021
 USERNAME                      user1               
 DISCOUNT_BY_CARD              10.00%              
 ==================================================

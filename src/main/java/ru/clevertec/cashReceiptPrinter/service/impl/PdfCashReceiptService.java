@@ -4,6 +4,7 @@ import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Rectangle;
 import com.itextpdf.text.pdf.*;
+import org.springframework.stereotype.Service;
 import ru.clevertec.cashReceiptPrinter.Dto.OrderCostDto;
 import ru.clevertec.cashReceiptPrinter.Dto.OrderDto;
 import ru.clevertec.cashReceiptPrinter.Dto.PurchaseFullResponseDto;
@@ -13,18 +14,21 @@ import ru.clevertec.cashReceiptPrinter.enums.OrderDetail;
 import ru.clevertec.cashReceiptPrinter.enums.TableMenu;
 import ru.clevertec.cashReceiptPrinter.enums.TableTail;
 import ru.clevertec.cashReceiptPrinter.service.CashReceiptService;
+import ru.clevertec.cashReceiptPrinter.util.IOUtility;
 
 import java.io.ByteArrayOutputStream;
 import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.List;
 
+@Service
 public class PdfCashReceiptService implements CashReceiptService {
 
     @Override
-    public String getExtension() {
-        return CashReceiptType.PDF.getExtension();
+    public String printCashReceipt(OrderDto orderDto) {
+        ByteArrayOutputStream byteArrayOutputStream = createCashReceipt(orderDto);
+        String fileExtension = CashReceiptType.PDF.getExtension();
+        return IOUtility.writeByteStreamToFile(byteArrayOutputStream, fileExtension);
     }
 
     @Override
