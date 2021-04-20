@@ -17,7 +17,7 @@ public class IOUtility {
         String filePath = Constants.EMPTY_STRING;
 
         try {
-            File file = File.createTempFile(prefix, fileExtension, new File(Constants.CASH_RECEIPT_FOLDER));
+            File file = File.createTempFile(prefix, fileExtension, new File(Constants.CASH_RECEIPT_DIR_PATH));
             FileOutputStream fileOutputStream = new FileOutputStream(file);
             fileOutputStream.write(byteArrayOutputStream.toByteArray());
 

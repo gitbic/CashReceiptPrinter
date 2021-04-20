@@ -7,11 +7,11 @@ import java.util.Arrays;
 
 public enum TableMenu {
 
-    QTY(Constants.QUANTITY_CELL_WIDTH),
-    DESCRIPTION(Constants.DESCRIPTION_CELL_WIDTH),
-    PRICE(Constants.PRICE_CELL_WIDTH),
-    TOTAL(Constants.TOTAL_COST_CELL_WIDTH),
-    DISCOUNT(Constants.DISCOUNT_PERCENT_COST_CELL_WIDTH);
+    QTY(Constants.QUANTITY_PDF_CELL_WIDTH),
+    DESCRIPTION(Constants.DESCRIPTION_PDF_CELL_WIDTH),
+    PRICE(Constants.PRICE_PDF_CELL_WIDTH),
+    TOTAL(Constants.TOTAL_COST_PDF_CELL_WIDTH),
+    DISCOUNT(Constants.DISCOUNT_PERCENT_COST_PDF_CELL_WIDTH);
 
     private final int widthCell;
 
