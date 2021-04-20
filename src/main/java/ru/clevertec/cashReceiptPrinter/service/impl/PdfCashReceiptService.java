@@ -51,10 +51,10 @@ public class PdfCashReceiptService implements CashReceiptService {
             useTemplate(writer, Constants.PDF_TEMPLATE_FILE_PATH);
 
             document.add(getOrderDetail(orderDto.getUsername(), orderDto.getDiscountPercentByCard()));
-            document.add(pdfTableSeparator());
+            document.add(getLineSeparator());
             document.add(getCheckHead());
             document.add(getCheckBody(orderDto.getPurchaseFullResponseDtoList()));
-            document.add(pdfTableSeparator());
+            document.add(getLineSeparator());
             document.add(getCheckTail(orderDto.getOrderCostDto()));
 
             document.close();
@@ -81,7 +81,7 @@ public class PdfCashReceiptService implements CashReceiptService {
 
     private PdfPTable getCheckHead() {
         PdfPTable table = getPdfTable(TableMenu.getMenuCellsWidth());
-        table.getDefaultCell().setBorder(Rectangle.ALIGN_BASELINE);
+        table.getDefaultCell().setBorder(Rectangle.NO_BORDER);
 
         for (TableMenu value : TableMenu.values()) {
             table.addCell(value.toString());
@@ -91,7 +91,7 @@ public class PdfCashReceiptService implements CashReceiptService {
 
     private PdfPTable getCheckBody(List<PurchaseFullResponseDto> purchasesDto) {
         PdfPTable table = getPdfTable(TableMenu.getMenuCellsWidth());
-        table.getDefaultCell().setBorder(Rectangle.ALIGN_BASELINE);
+        table.getDefaultCell().setBorder(Rectangle.NO_BORDER);
 
         for (PurchaseFullResponseDto purchase : purchasesDto) {
             table.addCell(purchase.getProductNumber());
@@ -133,15 +133,15 @@ public class PdfCashReceiptService implements CashReceiptService {
         try {
             table.setTotalWidth(cellsWidth);
         } catch (DocumentException e) {
-            System.out.println(e);
+            e.printStackTrace();
         }
         return table;
     }
 
 
-    private PdfPTable pdfTableSeparator() {
+    private PdfPTable getLineSeparator() {
         PdfPTable table = getPdfTable(TableMenu.getMenuCellsWidth());
-        table.getDefaultCell().setBorder(Rectangle.NO_BORDER);
+        table.getDefaultCell().setBorder(Rectangle.BOTTOM);
 
         for (int i = 0; i < TableMenu.values().length; i++) {
             table.addCell(Constants.STRING_ONE_SPACE);

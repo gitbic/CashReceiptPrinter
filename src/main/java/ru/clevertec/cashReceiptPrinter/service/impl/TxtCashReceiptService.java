@@ -29,11 +29,10 @@ public class TxtCashReceiptService implements CashReceiptService {
     @Override
     public ByteArrayOutputStream createCashReceipt(OrderDto orderDto) {
         String str = getOrderDetail(orderDto.getUsername(), orderDto.getDiscountPercentByCard())
-                + Constants.TXT_MENU_DELIMITER
+                + getLineSeparator()
                 + getCheckHead()
-                + Constants.TXT_MENU_DELIMITER
                 + getCheckBody(orderDto.getPurchaseFullResponseDtoList())
-                + Constants.TXT_MENU_DELIMITER
+                + getLineSeparator()
                 + getCheckTail(orderDto.getOrderCostDto());
 
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
@@ -84,5 +83,9 @@ public class TxtCashReceiptService implements CashReceiptService {
         formatter.format(tailString, TableTail.DISCOUNT, orderCostDto.getDiscountCost());
         formatter.format(tailString, TableTail.PAYMENT, orderCostDto.getFinalCost());
         return formatter.toString();
+    }
+
+    private String getLineSeparator() {
+        return Constants.UNDERSCORE_LINE.repeat(TableMenu.getTotalWidth()) + System.lineSeparator();
     }
 }

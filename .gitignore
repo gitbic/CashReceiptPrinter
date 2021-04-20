@@ -10,3 +10,4 @@ resources/check.pdf
 .gradle
 /build/
 build/
+src\main\resources\cashReceipt\

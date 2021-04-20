@@ -54,7 +54,6 @@ public class Constants {
     public static final int TOTAL_COST_CELL_WIDTH = 10;
     public static final int DISCOUNT_PERCENT_COST_CELL_WIDTH = 10;
 
-    public static final String TXT_MENU_DELIMITER = "=".repeat(TableMenu.getTotalWidth()) + System.lineSeparator();
-
+    public static final String UNDERSCORE_LINE = "-";
     public static final String PREFIX_FILE_DAY_TIME_FORMAT = "yyyy.MM.dd_HH.mm.ss_";
 }
