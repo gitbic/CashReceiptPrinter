@@ -14,8 +14,6 @@ import ru.clevertec.cashReceiptPrinter.enums.CashReceiptType;
 import ru.clevertec.cashReceiptPrinter.enums.OrderDetail;
 import ru.clevertec.cashReceiptPrinter.enums.TableMenu;
 import ru.clevertec.cashReceiptPrinter.enums.TableTail;
-import ru.clevertec.cashReceiptPrinter.service.CashReceiptService;
-import ru.clevertec.cashReceiptPrinter.util.IOUtility;
 
 import java.io.ByteArrayOutputStream;
 import java.io.FileInputStream;
@@ -24,18 +22,11 @@ import java.util.List;
 
 @Slf4j
 @Service
-public class PdfCashReceiptService implements CashReceiptService {
+public class PdfCashReceiptService extends AbstractCashReceiptService {
 
     @Override
-    public String printCashReceipt(OrderDto orderDto) {
-        log.info("Method: {}, input value: {}", "printCashReceipt", orderDto);
-
-        ByteArrayOutputStream byteArrayOutputStream = createCashReceipt(orderDto);
-        String fileExtension = CashReceiptType.PDF.getExtension();
-        String cashReceiptUrl = IOUtility.writeByteStreamToFile(byteArrayOutputStream, fileExtension);
-
-        log.info("Method: {}, output value: cashReceiptUrl = {}", "printCashReceipt", cashReceiptUrl);
-        return cashReceiptUrl;
+    protected String getFileExtension() {
+        return CashReceiptType.PDF.getExtension();
     }
 
     @Override
