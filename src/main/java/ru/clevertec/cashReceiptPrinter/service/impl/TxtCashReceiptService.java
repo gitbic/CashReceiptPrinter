@@ -1,5 +1,6 @@
 package ru.clevertec.cashReceiptPrinter.service.impl;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import ru.clevertec.cashReceiptPrinter.Dto.OrderCostDto;
 import ru.clevertec.cashReceiptPrinter.Dto.OrderDto;
@@ -16,18 +17,26 @@ import java.io.ByteArrayOutputStream;
 import java.util.Formatter;
 import java.util.List;
 
+@Slf4j
 @Service
 public class TxtCashReceiptService implements CashReceiptService {
 
     @Override
     public String printCashReceipt(OrderDto orderDto) {
+        log.info("Method: {}, input value: {}", "printCashReceipt", orderDto);
+
         ByteArrayOutputStream byteArrayOutputStream = createCashReceipt(orderDto);
         String fileExtension = CashReceiptType.TXT.getExtension();
-        return IOUtility.writeByteStreamToFile(byteArrayOutputStream, fileExtension);
+        String cashReceiptUrl = IOUtility.writeByteStreamToFile(byteArrayOutputStream, fileExtension);
+
+        log.info("Method: {}, output value: cashReceiptUrl = {}", "printCashReceipt", cashReceiptUrl);
+        return cashReceiptUrl;
     }
 
     @Override
     public ByteArrayOutputStream createCashReceipt(OrderDto orderDto) {
+        log.info("Method: {}, input value: {}", "createCashReceipt", orderDto);
+
         String str = getOrderDetail(orderDto.getUsername(), orderDto.getDiscountPercentByCard())
                 + getLineSeparator()
                 + getCheckHead()
@@ -37,6 +46,8 @@ public class TxtCashReceiptService implements CashReceiptService {
 
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         byteArrayOutputStream.writeBytes(str.getBytes());
+
+        log.info("Method: {}, output value: {}", "createCashReceipt", "outputStream");
         return byteArrayOutputStream;
     }
 

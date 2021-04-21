@@ -4,6 +4,7 @@ import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Rectangle;
 import com.itextpdf.text.pdf.*;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import ru.clevertec.cashReceiptPrinter.Dto.OrderCostDto;
 import ru.clevertec.cashReceiptPrinter.Dto.OrderDto;
@@ -21,25 +22,30 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.List;
 
+@Slf4j
 @Service
 public class PdfCashReceiptService implements CashReceiptService {
 
     @Override
     public String printCashReceipt(OrderDto orderDto) {
+        log.info("Method: {}, input value: {}", "printCashReceipt", orderDto);
+
         ByteArrayOutputStream byteArrayOutputStream = createCashReceipt(orderDto);
         String fileExtension = CashReceiptType.PDF.getExtension();
-        return IOUtility.writeByteStreamToFile(byteArrayOutputStream, fileExtension);
+        String cashReceiptUrl = IOUtility.writeByteStreamToFile(byteArrayOutputStream, fileExtension);
+
+        log.info("Method: {}, output value: cashReceiptUrl = {}", "printCashReceipt", cashReceiptUrl);
+        return cashReceiptUrl;
     }
 
     @Override
     public ByteArrayOutputStream createCashReceipt(OrderDto orderDto) {
+        log.info("Method: {}, input value: {}", "createCashReceipt", orderDto);
+
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         try {
             Document document = new Document();
-
-
             PdfWriter writer = PdfWriter.getInstance(document, outputStream);
-
             document.open();
 
             document.setMargins(Constants.PDF_DOC_MARGIN_LEFT,
@@ -63,6 +69,7 @@ public class PdfCashReceiptService implements CashReceiptService {
             e.printStackTrace();
         }
 
+        log.info("Method: {}, output value: {}", "createCashReceipt", "outputStream");
         return outputStream;
     }
 
