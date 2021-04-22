@@ -14,6 +14,7 @@ public class CashReceiptTypeCondition implements Condition {
     private static final String FIELD_NAME = "value";
     private static final String PROPERTIES_FILE_NAME = "application";
     private static final String OPTION_KEY_NAME = "cash-receipt.type";
+    public static final String DEFAULT_CASH_RECEIPT_TYPE = "pdf";
 
     @Override
     public boolean matches(ConditionContext context, AnnotatedTypeMetadata metadata) {

@@ -2,7 +2,7 @@ package ru.clevertec.cashReceiptPrinter.service.impl;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-import ru.clevertec.cashReceiptPrinter.Dto.OrderDto;
+import ru.clevertec.cashReceiptPrinter.dto.OrderDto;
 import ru.clevertec.cashReceiptPrinter.constants.Constants;
 import ru.clevertec.cashReceiptPrinter.service.CashReceiptService;
 

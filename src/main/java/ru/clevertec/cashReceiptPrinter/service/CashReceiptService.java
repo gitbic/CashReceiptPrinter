@@ -1,7 +1,7 @@
 package ru.clevertec.cashReceiptPrinter.service;
 
 import org.springframework.stereotype.Service;
-import ru.clevertec.cashReceiptPrinter.Dto.OrderDto;
+import ru.clevertec.cashReceiptPrinter.dto.OrderDto;
 
 import java.io.ByteArrayOutputStream;
 

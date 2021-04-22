@@ -1,4 +1,4 @@
-package ru.clevertec.cashReceiptPrinter.Dto;
+package ru.clevertec.cashReceiptPrinter.dto;
 
 import lombok.Data;
 import ru.clevertec.cashReceiptPrinter.util.FormatUtility;

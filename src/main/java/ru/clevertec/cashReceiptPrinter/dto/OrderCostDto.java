@@ -1,10 +1,8 @@
-package ru.clevertec.cashReceiptPrinter.Dto;
+package ru.clevertec.cashReceiptPrinter.dto;
 
 import lombok.Data;
-import ru.clevertec.cashReceiptPrinter.constants.Constants;
 import ru.clevertec.cashReceiptPrinter.util.FormatUtility;
 
-import java.lang.invoke.ConstantBootstraps;
 import java.math.BigDecimal;
 
 @Data
