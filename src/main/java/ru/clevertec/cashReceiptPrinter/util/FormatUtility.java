@@ -13,6 +13,6 @@ public final class FormatUtility {
     }
 
     public static String percentToString(double value) {
-        return String.format(Locale.ENGLISH, Constants.FSTRING_NUMBER_DECIMAL, value);
+        return String.format(Locale.ENGLISH, Constants.FORMAT_STRING_NUMBER_DECIMAL, value);
     }
 }
