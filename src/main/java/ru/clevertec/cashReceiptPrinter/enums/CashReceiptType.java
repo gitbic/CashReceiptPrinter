@@ -14,4 +14,8 @@ public enum CashReceiptType {
     public String getExtension() {
         return extension;
     }
+
+    public String getType() {
+        return this.toString().toLowerCase();
+    }
 }

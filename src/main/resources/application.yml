@@ -1,0 +1,16 @@
+cash-receipt.type: pdf
+
+logging:
+  file.name: log/app.log
+  logback.rollingpolicy.max-file-size: 5MB
+
+spring:
+  application:
+    name: cash-receipt-printer
+server:
+  port: 8194
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
